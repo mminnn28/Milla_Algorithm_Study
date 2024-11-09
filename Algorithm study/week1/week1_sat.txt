@@ -1,0 +1,48 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Main {
+
+    public static int[][] rec;
+    public static int N;
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        N = sc.nextInt();
+        int M = sc.nextInt();
+
+        rec = new int[N][M];
+        for (int i = 0; i < N; i++) {
+            String[] arr = sc.next().split("");
+            for (int j = 0; j < M; j++)
+                rec[i][j] = Integer.parseInt(arr[j]); // 숫자 꺼내기
+        }
+            
+
+        int maxSize = 1;
+        for (int i = 0; i < N; i++) 
+            for (int j = 0; j < M; j++)
+                for (int k = j + 1; k < M; k++)
+                    if (rec[i][j] == rec[i][k]) {
+                        int s = getSquare(i, j, k);
+                        if (s > maxSize) maxSize = s;
+                    }
+
+        System.out.printf("%d", maxSize);
+        
+    }
+
+    public static int getSquare(int i, int j, int k) {
+        int diff = k - j;
+        if (i + diff >= N) return 0;
+        
+        int n = rec[i][j];
+        if (rec[i+diff][j] == n && rec[i+diff][k] == n) {
+            return (diff + 1) * (diff + 1);
+        }
+        else return 0;
+        
+    }
+}
