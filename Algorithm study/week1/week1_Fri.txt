@@ -1,0 +1,70 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+ 
+public class Main {
+ 
+	public static void main(String[] args) {
+ 
+		Scanner sc = new Scanner(System.in);
+ 
+		int N = sc.nextInt();
+		int M = sc.nextInt();        
+ 
+		boolean[][] board = new boolean[N][M];
+		
+		// 배열 입력 받기
+		for (int i = 0; i < N; i++) {
+			String str = sc.next();
+			
+			for (int j = 0; j < M; j++) {
+				if (str.charAt(j) == 'B') {
+					board[i][j] = true;		
+				} else {
+					board[i][j] = false;
+				}
+			}
+		}
+ 
+		// 첫번째 칸이 될 수 있는 범위
+		int row = N - 7;
+		int col = M - 7;
+
+        int min = 64;
+        
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				int m = find(board, i, j);
+                if (m < min) min = m; // 최솟값 저장
+			}
+		}
+        
+		System.out.println(min);
+	}
+ 
+	
+	public static int find(boolean[][] board, int x, int y) {
+		int boundX = x + 8;
+		int boundY = y + 8;
+		int count = 0;
+ 
+		boolean c = board[x][y];	// 첫 번째 칸의 색 
+ 
+		for (int i = x; i < boundX; i++) {
+			for (int j = y; j < boundY; j++) {
+				if (board[i][j] != c) {	
+					count++;
+				}
+				c = (!c);
+			}
+
+            //다음 줄의 첫번째 칸의 색은 이전 줄의 마지막 칸의 색과 같음
+			c = !c;
+		}
+
+        // 첫번째 칸을 그대로 했을 때 / 반대로 칠했을 때
+        if (count > 64 - count) count = 64 - count;
+		
+		return count;
+	}
+}
