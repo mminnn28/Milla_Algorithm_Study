@@ -33,5 +33,3 @@ public class Main {
         ball[b-1] = temp;
     }
 }
-https://snupi.tistory.com/48
-https://velog.io/@effirin/Java-StringTokenizer%EC%99%80-Split-%EB%A9%94%EC%84%9C%EB%93%9C-%EC%96%B8%EC%A0%9C-%EC%8D%A8%EC%95%BC%ED%95%A0%EA%B9%8C
